@@ -1,6 +1,8 @@
 from django.db import models
 from django.contrib.auth.models import User
+from django.db.models.deletion import CASCADE
 from django.db.models import Sum
+from django.core.validators import MinValueValidator
 
 
 class Author(models.Model):
@@ -19,9 +21,15 @@ class Author(models.Model):
         self.ratingAuthor = pRat * 3 + cRat
         self.save()
 
+    def __str__(self) -> str:
+        return self.authorUser.username
+
 
 class Category(models.Model):
     name = models.CharField(max_length=64, unique=True)
+
+    def __str__(self) -> str:
+        return self.name
 
 
 class Post(models.Model):
@@ -40,6 +48,9 @@ class Post(models.Model):
     text = models.TextField()
     rating = models.SmallIntegerField(default=0)
 
+    def __str__(self):
+        return f'{self.title} {self.dateCreation}'
+
     def like(self):
         self.rating += 1
         self.save()
@@ -49,20 +60,26 @@ class Post(models.Model):
         self.save()
 
     def preview(self):
-        return self.text[0:123] + '...'
+        return f'Заголовок: {self.title}\n Статья: {self.text[:124]} ...'
+
+    def get_absolute_url(self):
+        return f'/news/{self.id}'
 
 
 class PostCategory(models.Model):
-    postTrough = models.ForeignKey(Post, on_delete=models.CASCADE)
-    categoryTrough = models.ForeignKey(Category, on_delete=models.CASCADE)
+    postThrough = models.ForeignKey(Post, on_delete=models.CASCADE)
+    categoryThrough = models.ForeignKey(Category, on_delete=models.CASCADE)
 
 
 class Comment(models.Model):
-    commentPost = models.ForeignKey(Post, on_delete=models.CASCADE)
-    commentUser = models.ForeignKey(User, on_delete=models.CASCADE)
+    commentPost = models.ForeignKey(Post, on_delete=CASCADE)
+    commentUser = models.ForeignKey(User, on_delete=CASCADE)
     text = models.TextField()
     dateCreation = models.DateTimeField(auto_now_add=True)
     rating = models.SmallIntegerField(default=0)
+
+    def __str__(self):
+        return f'{self.commentUser.username}'
 
     def like(self):
         self.rating += 1

@@ -1,12 +1,13 @@
 {% load static %}
 
-<html lang="en">
+<!DOCTYPE html>
+<html lang="ru">
     <head>
         <meta charset="utf-8" />
         <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
         <meta name="description" content="" />
         <meta name="author" content="" />
-        <title>Bare - Start Bootstrap Template</title>
+        <title>NewsPortal</title>
 
         {% load static %}
         <link href="css/styles.css" rel="stylesheet" />
@@ -31,13 +32,19 @@
                             </a>
                         </li>
                         <li class="nav-item">
+                            <title>about</title>
                             <a class="nav-link" href="/about/">About</a>
                         </li>
-                        <li class="nav-item">
                             <a class="nav-link" href="/contact/">Contact</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="/post/">News</a>
+                            <a class="nav-link" href="/news/">News</a>
+                        </li>
+                        <li class="nav-item active">
+                            <a class="nav-link" href="{% url 'add' %}">New post</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="{% url 'search' %}">Search</a>
                         </li>
                     </ul>
                 </div>

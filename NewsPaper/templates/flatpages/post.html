@@ -2,9 +2,7 @@
 
 {% load custom_filters %}
 
-{% block title %}
-Post
-{% endblock title %}
+{% block title %} Post {% endblock title %}
 
 {% block content %}
     <h1>Пост</h1>
@@ -24,7 +22,7 @@ Post
                 Текст
             </td>
          </tr>
-    
+
         <tr>
             <td>
                 {{ post.title|censor }} <!-- не забываем, что переменные в шаблоне ничем не отличаются от переменных в Python. Здесь также можно получать доступ к полям класса. Например, здесь мы выводим имя, в следующем столбце описание, и т. д.  -->
