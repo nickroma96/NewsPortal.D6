@@ -1,4 +1,4 @@
-"""NewsPaper URL Configuration
+"""protect URL Configuration
 
 The `urlpatterns` list routes URLs to views. For more information please see:
     https://docs.djangoproject.com/en/4.0/topics/http/urls/
@@ -14,14 +14,9 @@ Including another URLconf
     2. Add a URL to urlpatterns:  path('blog/', include('blog.urls'))
 """
 from django.contrib import admin
-from django.urls import path, include
+from django.urls import path
+from .views import IndexView
 
 urlpatterns = [
-    path('admin/', admin.site.urls),
-    path('pages/', include('django.contrib.flatpages.urls')),
-    path('news/', include('news.urls')),
-    path('', include('news.urls')),
-    path('', include('protect.urls')),
-    path('sign/', include('sign.urls')),
-    path('accounts/', include('allauth.urls'))
+    path('', IndexView.as_view()),
 ]
