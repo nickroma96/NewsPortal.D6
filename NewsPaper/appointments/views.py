@@ -34,10 +34,7 @@ class AppointView(View):
             # print("------------", qaz.id, qaz.name)
             news_from_each_category = []
 
-            for news in Post.objects.filter(category_id=category.id,
-                                            dateCreation__week=datetime.now().isocalendar()[1] - 1).values('pk',
-                                                                                                           'title',
-                                                                                                           'dateCreation'):
+            for news in Post.objects.filter(category_id=category.id, dateCreation__week=datetime.now().isocalendar()[1] - 1).values('pk', 'title', 'dateCreation'):
                 new = (f'{news.get("title")}, {news.get("dateCreation")}, http://127.0.0.1:8000/news/{news.get("pk")}')
                 news_from_each_category.append(new)
             print("Письма отправлены подписчикам категории:", category.id, category.name)
@@ -53,8 +50,7 @@ class AppointView(View):
             'pole_test_html2': pole_test2,
             "pole_spisok_html1": pole_spisok1,
             "pole_spisok_html2": pole_spisok2,
-            # "pole_spisok_html3": pole_spisok3,
-            # "news_by_category": news_from_category,
+
         })
 
 
